@@ -10,7 +10,7 @@ class UpdatePasswordPage(tk.Tk):
     images = []
     def __init__(self):
         super().__init__()
-        self.title("Kullanıcı Adı Güncelle")
+        self.title("Şifre Güncelle")
         self.geometry("925x500")
         self.configure(bg="#f2eded")
         self.resizable(False,False)
@@ -24,31 +24,34 @@ class UpdatePasswordPage(tk.Tk):
         bg = self.canvas.create_image(0, 0, image=img, anchor=tk.NW)
         UpdatePasswordPage.images.append(img)
 
-        loginLabel = Label(self, width=10,height=3, text="UserName: ",font=("Times 10 bold",12),background="#f2eded")
-        loginLabel.place(x=500,y=120)
+        Label(self,text="Şifrenizi Güncelleyin",font=("Times 10 bold",15),bg="#bad6ef").place(x=405,y=50)
 
-        pLabel = Label(self, width=10,height=3, text="Password: ",font=("Times 10 bold",12), background="#f2eded")
-        pLabel.place(x=500,y=200)
-
-        self.NameEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#f2eded")
-        self.NameEntry.place(x=600,y=140)
-        self.NameEntry.insert(0,'')
-
-        line1 = Frame(self,width=250,height=3,bg="gray").place(x=600,y=160)
-
-        self.PasswordEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#f2eded")
-        self.PasswordEntry.place(x=600,y=220)
-        self.PasswordEntry.insert(0,'')
-
-        line2 = Frame(self,width=250,height=3,bg="gray").place(x=600,y=240)
+        newpasswordLabel = Label(self, width=12, text="Yeni Şifreniz: ",font=("Times 10 bold",12),background="#bad6ef")
+        newpasswordLabel.place(x=265,y=180)
 
 
-        updatePasswordButton = Button(self, text="Şifreyi Güncelle",width=10,font="bold",command=self.updatePassword,bg="#f2bceb",bd=0)
-        updatePasswordButton.place(x=660,y=310)
+        self.newPasswordEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#bad6ef")
+        self.newPasswordEntry.place(x=385,y=180)
+        self.newPasswordEntry.insert(0,'')
 
+        line2 = Frame(self,width=250,height=3,bg="gray").place(x=385,y=200)
+
+
+        updatePasswordButton = Button(self, text="Şifreyi Güncelle",width=15,font=("bold",10),command=self.updatePassword,bg="#bad6ef",bd=0)
+        updatePasswordButton.place(x=430,y=310)
+        
+        quitImage = ImageTk.PhotoImage(Image.open("image\icons8-go-back-100.png"))
+        quitButton = self.canvas.create_image(50, 50, image=quitImage)
+        self.canvas.tag_bind(quitButton, "<Button-1>", lambda e: self.back())
+        UpdatePasswordPage.images.append(quitImage)
+        
+    def back(self):
+        self.destroy()
+        self.controller.SettingsPage()    
+        
     def updatePassword(self):
         database = Database()
-        password = self.PasswordEntry.get()
+        password = self.newPasswordEntry.get()
         if(database.UpdatePassword(password)):
             self.destroy()
             messagebox.showinfo(message="Şifreniz başarı ile güncellendi !",title="Başarılı")

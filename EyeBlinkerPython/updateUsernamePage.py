@@ -23,29 +23,30 @@ class UpdateUsernamePage(tk.Tk):
         img = ImageTk.PhotoImage(resize_image)
         UpdateUsernamePage.images.append(img)
         bg = self.canvas.create_image(0, 0, image=img, anchor=tk.NW)
+        
+        Label(self,text="Kullanıcı Adınızı Güncelleyin",font=("Times 10 bold",15),bg="#bad6ef").place(x=385,y=70)
 
+        userNameLabel = Label(self, width=16,height=1, text="Yeni Kullanıcı Adınız: ",font=("Times 10 bold",12), bg="#bad6ef")
+        userNameLabel.place(x=230,y=200)
 
-        loginLabel = Label(self, width=10,height=3, text="UserName: ",font=("Times 10 bold",12),background="#f2eded")
-        loginLabel.place(x=500,y=120)
-
-        pLabel = Label(self, width=10,height=3, text="Password: ",font=("Times 10 bold",12), background="#f2eded")
-        pLabel.place(x=500,y=200)
-
-        self.NameEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#f2eded")
-        self.NameEntry.place(x=600,y=140)
+        self.NameEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#bad6ef")
+        self.NameEntry.place(x=390,y=200)
         self.NameEntry.insert(0,'')
 
-        line1 = Frame(self,width=250,height=3,bg="gray").place(x=600,y=160)
+        usernameline = Frame(self,width=250,height=3,bg="gray").place(x=390,y=220)
 
-        self.passwordEntry = Entry(self, width=35,font=("bold",10),fg="black",border=0,bg="#f2eded")
-        self.passwordEntry.place(x=600,y=220)
-        self.passwordEntry.insert(0,'')
-
-        line2 = Frame(self,width=250,height=3,bg="gray").place(x=600,y=240)
-
-
-        updateUsernameButton = Button(self, text="Giriş Yap",width=10,font="bold",command=self.updateUsername,bg="#f2bceb",bd=0)
-        updateUsernameButton.place(x=660,y=310)
+        updateUsernameButton = Button(self, text="Kullanıcı Adımı Güncelle",width=20,font=("bold",10),command=self.updateUsername,bg="#bad6ef",bd=0)
+        updateUsernameButton.place(x=430,y=310)
+        
+        
+        quitImage = ImageTk.PhotoImage(Image.open("image\icons8-go-back-100.png"))
+        quitButton = self.canvas.create_image(50, 50, image=quitImage)
+        self.canvas.tag_bind(quitButton, "<Button-1>", lambda e: self.back())
+        UpdateUsernamePage.images.append(quitImage)
+        
+    def back(self):
+        self.destroy()
+        self.controller.SettingsPage()    
 
     def updateUsername(self):
         database = Database()
