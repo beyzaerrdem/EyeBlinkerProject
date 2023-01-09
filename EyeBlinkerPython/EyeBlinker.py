@@ -13,7 +13,7 @@ from Database import Database
 
 class EyeBlinker:
     def __init__(self,isRecord = False):
-        self.timer = Timer(10,self.Check)
+        self.timer = Timer(60,self.Check)
         self.database = Database()
         self.predictor2 = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
         self.detector2 = dlib.get_frontal_face_detector()
