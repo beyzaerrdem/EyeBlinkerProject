@@ -41,13 +41,15 @@ class SettingsPage(tk.Tk):
         
         backPageImage = ImageTk.PhotoImage(Image.open("image\icons8-shutdown-100.png"))
         backPageButton = self.canvas.create_image(870, 50, image=backPageImage)
-        self.canvas.tag_bind(backPageButton, "<Button-1>", lambda e: self.quit())
+        self.canvas.tag_bind(backPageButton, "<Button-1>",lambda e: self.destroy())
+        SettingsPage.images.append(backPageImage)
 
 
         #creating button which supports png transparency
         quitImage = ImageTk.PhotoImage(Image.open("image\icons8-go-back-100.png"))
         quitButton = self.canvas.create_image(50, 50, image=quitImage)
         self.canvas.tag_bind(quitButton, "<Button-1>", lambda e: self.back())
+        SettingsPage.images.append(quitImage)
         
     def back(self):
         self.destroy()
@@ -74,3 +76,4 @@ class SettingsPage(tk.Tk):
         self.destroy()
         updatePasswordPage = UpdatePasswordPage()
         updatePasswordPage.mainloop()
+        self.controller.SettingsPage()
